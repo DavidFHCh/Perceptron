@@ -4,6 +4,7 @@ class Perceptron (Object):
 
     def __init__ (self, numero_entradas,func_activacion,tasa_aprendizaje = 0.1):
         """
+        Inicializando el Perceptron.
         :param numero_entradas: numero de entradas que tendra el Perceptron
         :param func_activacion: funcion de activacion
         :param tasa_aprendizaje: tasa de aprendizaje
@@ -28,12 +29,24 @@ class Perceptron (Object):
 
         return self.fun (sum - self.theta)
 
-    def entrenamiento_aux (self, inputs, outputs):
+    def entrenamiento_aux (self, inputs, output):
         """
         Funcion auxiliar de entrenamiento(), en esta funcion se actuliazaran
         los pesos del perceptron, para que el entrenamiento tenga el efecto
         deseado.
         """
+        output1 = self.output_perceptron (inputs)
+
+        error = output - output1
+
+        if error != 0:
+            self.theta = self.theta - (self.alpha * error)
+            l = zip (self.pesos, inputs)
+            pesos = []
+            for (wi, ei) in l:
+                pesos = pesos + [wi + (self.alpha * ei * error)]
+            self.pesos = pesos
+        return error
 
     def entrenamiento (self, conjunto_entr, salidas_esperadas):
         """
