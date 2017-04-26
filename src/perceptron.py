@@ -1,6 +1,6 @@
 import random
 
-class Perceptron (Object):
+class Perceptron (object):
 
     def __init__ (self, numero_entradas,func_activacion,tasa_aprendizaje = 0.1):
         """
@@ -11,7 +11,7 @@ class Perceptron (Object):
         """
         self.n = numero_entradas
         self.pesos = []
-        for i in range(self.n);
+        for i in range(self.n):
             self.pesos = self.pesos + [random.uniform(-0.5,0.5)]
         self.fun = func_activacion
         self.theta = random.uniform(-0.5,0.5)
@@ -27,7 +27,7 @@ class Perceptron (Object):
         l = zip(self.pesos,inputs)
         suma = sum ((wi*ei) for (wi,ei) in l)
 
-        return self.fun (sum - self.theta)
+        return self.fun (suma - self.theta)
 
     def entrenamiento_aux (self, inputs, output):
         """
@@ -42,16 +42,14 @@ class Perceptron (Object):
         if error != 0:
             self.theta = self.theta - (self.alpha * error)
             l = zip (self.pesos, inputs)
-            pesos = []
+            self.pesos = []
             for (wi, ei) in l:
-                pesos = pesos + [wi + (self.alpha * ei * error)]
-            self.pesos = pesos
-        print ("Valor funcion de error: \t",error)
-        return error
+                self.pesos = self.pesos + [wi + (self.alpha * ei * error)]
+        return abs(error)
 
     def entrenamiento (self, conjunto_entr, salidas_esperadas):
         """
-        Se iterara 100 veces sobre el conjunto de entrenamiento como
+        Se iterara 1000 veces sobre el conjunto de entrenamiento como
         maximo, se espera que sea suficiente para entrenar los perceptrones.
         El error tendra que ser menor o igual a 0 para que se considere
         bueno el entrenamiento.
@@ -63,7 +61,7 @@ class Perceptron (Object):
 
         errores = []
 
-        for j in range (100):
+        for j in range (1000):
             for i in range (total):
                 errores = errores + [self.entrenamiento_aux (conjunto_entr[i],salidas_esperadas[i])]
             suma =  sum (errores)/total
