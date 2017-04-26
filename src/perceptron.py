@@ -46,13 +46,14 @@ class Perceptron (Object):
             for (wi, ei) in l:
                 pesos = pesos + [wi + (self.alpha * ei * error)]
             self.pesos = pesos
+        print ("Valor funcion de error: \t",error)
         return error
 
     def entrenamiento (self, conjunto_entr, salidas_esperadas):
         """
         Se iterara 100 veces sobre el conjunto de entrenamiento como
         maximo, se espera que sea suficiente para entrenar los perceptrones.
-        El error tendra que ser menor o igual a 0.1 para que se considere
+        El error tendra que ser menor o igual a 0 para que se considere
         bueno el entrenamiento.
         :param conjunto_entr: el conjunto de entrenamiento
         :param salidas_esperadas: el conjunto de salidas esperadas del conjunto de entrenamiento.
@@ -66,5 +67,5 @@ class Perceptron (Object):
             for i in range (total):
                 errores = errores + [self.entrenamiento_aux (conjunto_entr[i],salidas_esperadas[i])]
             suma =  sum (errores)/total
-            if (suma <= 0.1):
+            if (suma <= 0):
                 return
